@@ -1,0 +1,29 @@
+package ReadingDataFrom;
+
+
+import java.io.IOException;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
+
+import genericLibrary.UtilityMethods;
+
+public class ReadingDatafromExcelSingleData {
+
+	
+	@Test
+	public void toOpenDemoWebshop() throws IOException {
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		UtilityMethods um = new UtilityMethods();
+		String URL = um.readingTheDataFromPropFile("./testData/data.properties", "url");
+		driver.get(URL);
+		
+		
+		driver.findElement(By.linkText("Log in")).click();
+		String email = um.readingDataFromExcelSingleValue("./testData/TestData.xlsx", "loginData", 0, 1);
+		driver.findElement(By.id("Email")).sendKeys(email);
+	}
+}
